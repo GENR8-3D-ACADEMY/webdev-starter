@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a bug in a project (used in the Week 9 bug swap)
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page or URL
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What actually happened
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Browser and screen size
+      placeholder: "Chrome, phone width"

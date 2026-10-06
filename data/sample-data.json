@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Example item one", "description": "Replace this with a few items from your chosen API." },
+  { "id": 2, "name": "Example item two", "description": "Keep this file small. It is your fallback data." },
+  { "id": 3, "name": "Example item three", "description": "Use it for local development and when the API fails." }
+]

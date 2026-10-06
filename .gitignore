@@ -1,0 +1,28 @@
+# ---- Operating system junk ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Editors (share only the course settings) ----
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*~
+
+# ---- Secrets and local config: never commit these ----
+.env
+.env.*
+*.pem
+*.key
+
+# ---- Logs, backups, temp ----
+*.log
+*.bak
+*.tmp
+
+# ---- Your own scratch work and generated reports ----
+scratch/
+reports/
+*.local.md

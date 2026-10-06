@@ -1,0 +1,30 @@
+name: Weekly task
+description: The task for this week (created by the instructor)
+title: "[W__] Weekly task"
+labels: ["week-__"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Complete the **Core** tasks before the end of the lesson. **Stretch** tasks are optional.
+  - type: textarea
+    id: core
+    attributes:
+      label: Core tasks
+      placeholder: "- [ ] ..."
+    validations:
+      required: true
+  - type: textarea
+    id: stretch
+    attributes:
+      label: Stretch tasks (optional)
+      placeholder: "- [ ] ..."
+  - type: textarea
+    id: rubric
+    attributes:
+      label: Rubric criteria unlocked this week
+  - type: input
+    id: due
+    attributes:
+      label: PR due
+      placeholder: "End of lesson (late PRs accepted until Sunday 20:00)"

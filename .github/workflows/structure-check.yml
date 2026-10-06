@@ -1,0 +1,55 @@
+name: Structure check
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check-structure:
+    name: check-structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Required files exist
+        run: |
+          missing=0
+          for f in README.md .gitignore index.html styles.css main.js; do
+            if [ ! -f "$f" ]; then
+              echo "::error::Missing required file: $f"
+              missing=1
+            fi
+          done
+          exit $missing
+
+      - name: No forbidden dependencies
+        run: |
+          fail=0
+          for f in package.json package-lock.json node_modules; do
+            if [ -e "$f" ]; then
+              echo "::error::Not allowed in this course: $f"
+              fail=1
+            fi
+          done
+          if grep -rEn --include='*.html' '<script[^>]+src="https?://' . ; then
+            echo "::error::External scripts are not allowed"
+            fail=1
+          fi
+          if grep -rEn --include='*.html' '<link[^>]+href="https?://[^"]*"' . | grep -i 'stylesheet' ; then
+            echo "::error::External stylesheets are not allowed"
+            fail=1
+          fi
+          exit $fail
+
+      - name: main.js uses strict mode
+        run: |
+          grep -qE '^"use strict";|^'"'"'use strict'"'"';' main.js || { echo "::error::main.js must start with \"use strict\";"; exit 1; }
+
+      - name: Style warnings (do not fail the build)
+        run: |
+          if grep -nE '\bvar\b' main.js; then echo "::warning::Avoid 'var' in main.js; use const/let"; fi
+          if grep -nE 'innerHTML' main.js; then echo "::warning::Avoid innerHTML with data; use textContent/createElement"; fi
+          if grep -nE '!important' styles.css; then echo "::warning::Avoid !important"; fi
+          if grep -nE 'console\.log' main.js; then echo "::warning::Remove console.log before release"; fi

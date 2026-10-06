@@ -1,0 +1,25 @@
+name: PR title
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  check-title:
+    name: check-title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR title format
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          pattern='^\[W(0[1-9]|10)\] (feat|fix|docs|style|refactor|a11y|chore): .{3,60}$'
+          if [[ ! "$PR_TITLE" =~ $pattern ]]; then
+            echo "::error::PR title must look like: [W03] feat: add search form"
+            echo "Got: $PR_TITLE"
+            exit 1
+          fi
+          echo "Title OK: $PR_TITLE"

@@ -1,0 +1,14 @@
+changelog:
+  categories:
+    - title: New features
+      labels: ["feat"]
+    - title: Bug fixes
+      labels: ["fix", "bug"]
+    - title: Accessibility
+      labels: ["a11y"]
+    - title: Documentation
+      labels: ["docs"]
+    - title: Styling and refactoring
+      labels: ["style", "refactor"]
+    - title: Other changes
+      labels: ["*"]

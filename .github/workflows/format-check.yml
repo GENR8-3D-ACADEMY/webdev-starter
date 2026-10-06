@@ -1,0 +1,23 @@
+name: Format check (Prettier)
+
+# Runs Prettier on the CI machine only. Students never install it, so there's no node_modules in the repo.
+# Weeks 1-3: warning only. From Week 4, remove "continue-on-error" to make it blocking.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  format:
+    name: format
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prettier check
+        run: npx --yes prettier@3 --check "**/*.{html,css,js,json,md}"
